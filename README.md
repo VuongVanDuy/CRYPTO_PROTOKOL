@@ -1,5 +1,5 @@
 ## CRYPTO_PROTOKOL
-## Author: Vuong Van Duy
+## Author: Vuong Van Duy && Skochilov Ignat
 ## Email: vanduycn2@gmail.com
 ## Version: 1.0.0
 ## Instructions for using the Crypto module, for example the des module:

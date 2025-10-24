@@ -195,6 +195,17 @@ class MainApp:
         self.show_console()
         self.start_monitor()
 
+        try:
+            # Giữ chương trình chạy
+            while self.running:
+                # Có thể thêm các tác vụ khác ở đây
+                threading.Event().wait(0.1)  # Sleep ngắn để giảm CPU usage
+
+        except KeyboardInterrupt:
+            print("\nShutting down...")
+        finally:
+            self.stop_monitor()
+
 if __name__ == "__main__":
     console_menu = ConsoleMenu()
     app = MainApp(console_menu=console_menu)

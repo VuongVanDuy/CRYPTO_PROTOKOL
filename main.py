@@ -52,6 +52,7 @@ class MainApp:
         while True:
             try:
                 data, _ = sock.recvfrom(65535)
+                sock.close()
                 return data.decode()
             except socket.timeout:
                 return None

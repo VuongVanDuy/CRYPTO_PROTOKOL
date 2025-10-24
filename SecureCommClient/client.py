@@ -37,8 +37,11 @@ class UDPClient:
         """Gửi thông điệp trong một luồng riêng biệt."""
         try:
             while True:
-                message = input("Enter message to send (or 'exit' to quit): \n")
-                self.send_message(message)
+                message = input("Enter message to send (or 'exit' to quit):")
+                try:
+                  self.send_message(message)
+                except socket.timeout:
+                  continue
         except Exception as e:
             print(f"Error sending message in thread: {e}")
 

@@ -196,7 +196,7 @@ class MainApp:
         self.FLAG_ACTIVE = False
 
     def reset_running(self):
-        self.stop_monitor()
+        # self.stop_monitor()
         threading.Thread(target=self.start_session).start()
         self.udp_client.client_listen()
 

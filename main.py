@@ -146,7 +146,8 @@ class MainApp:
                 self.stop_monitor()
                 message = input(f"Enter the message to send to {SUBJECT}: ")
                 self.udp_client.send_message(message)
-                self.buffer = "Encrypted message sent to Bob.\n"
+                self.buffer += f"Enter the message to send to {SUBJECT}:" + message + "\n"
+                # self.buffer = "Encrypted message sent to Bob.\n"
                 self.start_monitor()
             else:
                 self.buffer = "Cannot send message. Certificate not verified or UDP client not initialized.\n"
@@ -196,9 +197,10 @@ class MainApp:
         self.FLAG_ACTIVE = False
 
     def reset_running(self):
-        # self.stop_monitor()
+        self.stop_monitor()
         threading.Thread(target=self.start_session).start()
         self.udp_client.client_listen()
+        self.buffer = ""
 
     def start_session(self):
         self.show_console()

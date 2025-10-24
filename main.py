@@ -136,6 +136,7 @@ class MainApp:
                     # Start listening in a separate thread or process as needed
                     #threading.Thread(target=self.udp_client.client_listen).start()
                     self.udp_client.client_listen()
+                    self.stop_monitor()
             else:
                 self.buffer = f"Failed to verify certificate: {response.text}\n"
 

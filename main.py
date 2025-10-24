@@ -144,7 +144,7 @@ class MainApp:
                 message = input(f"Enter the message to send to {SUBJECT}: ")
                 self.udp_client.send_message(message)
                 self.buffer = "Encrypted message sent to Bob.\n"
-                self.stop_monitor()
+                self.start_monitor()
             else:
                 self.buffer = "Cannot send message. Certificate not verified or UDP client not initialized.\n"
 

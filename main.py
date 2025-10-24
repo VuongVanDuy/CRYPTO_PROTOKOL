@@ -188,7 +188,7 @@ class MainApp:
             return
         if self.listener is not None:
             self.listener.stop()
-            self.listener.join(timeout=1.0)
+            #self.listener.join(timeout=1.0)
             self.listener = None
         self.FLAG_ACTIVE = False
 

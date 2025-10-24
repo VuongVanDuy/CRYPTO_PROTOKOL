@@ -23,6 +23,8 @@ class MainApp:
         self.is_verified: bool = False
         self.udp_client: Optional[UDPClient] = None
         self.running: bool = True
+        self.FLAG_ACTIVE = False
+        self.listener = None
         self.buffer = ""
         self.load_existing_keys()
 
@@ -135,6 +137,16 @@ class MainApp:
             else:
                 self.buffer = f"Failed to verify certificate: {response.text}\n"
 
+        if option == 4:
+            if self.is_verified and self.udp_client is not None:
+                self.stop_monitor()
+                message = input(f"Enter the message to send to {SUBJECT}: ")
+                self.udp_client.send_message(message)
+                self.buffer = "Encrypted message sent to Bob.\n"
+                self.stop_monitor()
+            else:
+                self.buffer = "Cannot send message. Certificate not verified or UDP client not initialized.\n"
+
 
     def show_console(self):
         self.console_menu.clear_screen()
@@ -163,11 +175,24 @@ class MainApp:
             pass
 
     def start_monitor(self):
-        self.show_console()
-        with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
-            listener.join()
+        if self.FLAG_ACTIVE:
+            return
+
+        self.listener = Listener(on_press=self.on_press, on_release=None)
+        self.listener.start()
+        self.FLAG_ACTIVE = True
+
+    def stop_monitor(self):
+        if not self.FLAG_ACTIVE:
+            return
+        if self.listener is not None:
+            self.listener.stop()
+            self.listener.join(timeout=1.0)
+            self.listener = None
+        self.FLAG_ACTIVE = False
 
     def run(self):
+        self.show_console()
         self.start_monitor()
 
 if __name__ == "__main__":

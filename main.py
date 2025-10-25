@@ -112,6 +112,7 @@ class MainApp:
             response = requests.post(f"{HOST_CA_SERVER}/cert/verify", json=data)
             if response.status_code == 200:
                 result = response.json().get("ok", False)
+                print(result)
                 self.buffer = "Certificate is valid.\n" if result else "Certificate is invalid.\n"
                 # generate UDPClient for further communication if verified
                 if result:

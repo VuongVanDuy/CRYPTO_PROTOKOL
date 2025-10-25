@@ -1,5 +1,6 @@
-from . import UDPClient, load_key_from_file
+from . import UDPClient
 from SecureCommClient.hybird_encrypt import HybirdEncryption
+from untils import load_key_from_file
 
 if __name__ == "__main__":
     # Load RSA keys from files
